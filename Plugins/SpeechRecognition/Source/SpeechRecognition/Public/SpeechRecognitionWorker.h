@@ -16,6 +16,7 @@
 #include <cstdio>
 #include <vector>
 #include <utility>
+#include "SpeechRecognition.h"
 
 //General Log
 DECLARE_LOG_CATEGORY_EXTERN(SpeechRecognitionPlugin, Log, All);

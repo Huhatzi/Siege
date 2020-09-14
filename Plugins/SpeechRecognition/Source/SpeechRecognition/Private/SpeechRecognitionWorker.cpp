@@ -1,5 +1,7 @@
-#include "SpeechRecognition.h"
 #include "SpeechRecognitionWorker.h"
+#include "SpeechRecognition.h"
+#include "SpeechRecognitionActor.h"
+
 
 //General Log
 DEFINE_LOG_CATEGORY(SpeechRecognitionPlugin);
