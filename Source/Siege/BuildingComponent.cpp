@@ -36,20 +36,233 @@ ABuildingComponent::ABuildingComponent()
 	z_positiv_collision_test = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("z_positiv_collision_test"));
 	z_negativ_collision_test = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("z_negativ_collision_test"));
 
-	x_positiv_collision_test->SetupAttachment(RootComponent);
-	x_negativ_collision_test->SetupAttachment(RootComponent);
+	x_positiv_collision_test->SetupAttachment(x_positiv);
+	x_negativ_collision_test->SetupAttachment(x_negativ);
 
-	y_positiv_collision_test->SetupAttachment(RootComponent);
-	y_negativ_collision_test->SetupAttachment(RootComponent);
+	y_positiv_collision_test->SetupAttachment(y_positiv);
+	y_negativ_collision_test->SetupAttachment(y_negativ);
 
-	z_positiv_collision_test->SetupAttachment(RootComponent);
-	z_negativ_collision_test->SetupAttachment(RootComponent);
+	z_positiv_collision_test->SetupAttachment(z_positiv);
+	z_negativ_collision_test->SetupAttachment(z_negativ);
+
+	x_positiv_collision_test->ComponentTags.Add("xp");
+	x_negativ_collision_test->ComponentTags.Add("xn");
+
+	y_positiv_collision_test->ComponentTags.Add("yp");
+	y_negativ_collision_test->ComponentTags.Add("yn");
+
+	z_positiv_collision_test->ComponentTags.Add("zp");
+	z_negativ_collision_test->ComponentTags.Add("zn");
 
 
+
+	x_positiv_collision_test->CanCharacterStepUpOn = ECanBeCharacterBase::ECB_No;
+	x_negativ_collision_test->CanCharacterStepUpOn = ECanBeCharacterBase::ECB_No;
+
+	y_positiv_collision_test->CanCharacterStepUpOn = ECanBeCharacterBase::ECB_No;
+	y_negativ_collision_test->CanCharacterStepUpOn = ECanBeCharacterBase::ECB_No;
+
+	z_positiv_collision_test->CanCharacterStepUpOn = ECanBeCharacterBase::ECB_No;
+	z_negativ_collision_test->CanCharacterStepUpOn = ECanBeCharacterBase::ECB_No;
+
+
+
+	x_positiv_collision_test->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	x_negativ_collision_test->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+
+	y_positiv_collision_test->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	y_negativ_collision_test->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+
+	z_positiv_collision_test->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	z_negativ_collision_test->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+
+
+	x_positiv_collision_test->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
+	x_negativ_collision_test->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
+
+	y_positiv_collision_test->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
+	y_negativ_collision_test->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
+
+	z_positiv_collision_test->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
+	z_negativ_collision_test->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
+
+	x_positiv_collision_test->SetCollisionResponseToChannel(ECollisionChannel::ECC_WorldDynamic, ECollisionResponse::ECR_Ignore);
+	x_negativ_collision_test->SetCollisionResponseToChannel(ECollisionChannel::ECC_WorldDynamic, ECollisionResponse::ECR_Ignore);
+
+	y_positiv_collision_test->SetCollisionResponseToChannel(ECollisionChannel::ECC_WorldDynamic, ECollisionResponse::ECR_Ignore);
+	y_negativ_collision_test->SetCollisionResponseToChannel(ECollisionChannel::ECC_WorldDynamic, ECollisionResponse::ECR_Ignore);
+
+	z_positiv_collision_test->SetCollisionResponseToChannel(ECollisionChannel::ECC_WorldDynamic, ECollisionResponse::ECR_Ignore);
+	z_negativ_collision_test->SetCollisionResponseToChannel(ECollisionChannel::ECC_WorldDynamic, ECollisionResponse::ECR_Ignore);
+
+
+
+	x_positiv_collision_test->SetCollisionResponseToChannel(ECollisionChannel::ECC_Visibility, ECollisionResponse::ECR_Block);
+	x_negativ_collision_test->SetCollisionResponseToChannel(ECollisionChannel::ECC_Visibility, ECollisionResponse::ECR_Block);
+
+	y_positiv_collision_test->SetCollisionResponseToChannel(ECollisionChannel::ECC_Visibility, ECollisionResponse::ECR_Block);
+	y_negativ_collision_test->SetCollisionResponseToChannel(ECollisionChannel::ECC_Visibility, ECollisionResponse::ECR_Block);
+
+	z_positiv_collision_test->SetCollisionResponseToChannel(ECollisionChannel::ECC_Visibility, ECollisionResponse::ECR_Block);
+	z_negativ_collision_test->SetCollisionResponseToChannel(ECollisionChannel::ECC_Visibility, ECollisionResponse::ECR_Block);
+
+	x_positiv_collision_test->SetCollisionResponseToChannel(ECollisionChannel::ECC_Camera, ECollisionResponse::ECR_Ignore);
+	x_negativ_collision_test->SetCollisionResponseToChannel(ECollisionChannel::ECC_Camera, ECollisionResponse::ECR_Ignore);
+
+	y_positiv_collision_test->SetCollisionResponseToChannel(ECollisionChannel::ECC_Camera, ECollisionResponse::ECR_Ignore);
+	y_negativ_collision_test->SetCollisionResponseToChannel(ECollisionChannel::ECC_Camera, ECollisionResponse::ECR_Ignore);
+
+	z_positiv_collision_test->SetCollisionResponseToChannel(ECollisionChannel::ECC_Camera, ECollisionResponse::ECR_Ignore);
+	z_negativ_collision_test->SetCollisionResponseToChannel(ECollisionChannel::ECC_Camera, ECollisionResponse::ECR_Ignore);
+
+
+	
+	
+	GetStaticMeshComponent()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	GetStaticMeshComponent()->SetCollisionResponseToChannel(ECollisionChannel::ECC_WorldDynamic, ECollisionResponse::ECR_Overlap);
+	GetStaticMeshComponent()->SetCollisionResponseToChannel(ECollisionChannel::ECC_Camera, ECollisionResponse::ECR_Overlap);
+	GetStaticMeshComponent()->SetGenerateOverlapEvents(true);
+	
+	x_positiv_collision_test->SetWorldScale3D(FVector(0.5f));
+	x_negativ_collision_test->SetWorldScale3D(FVector(0.5f));
+
+	y_positiv_collision_test->SetWorldScale3D(FVector(0.5f));
+	y_negativ_collision_test->SetWorldScale3D(FVector(0.5f));
+
+	z_positiv_collision_test->SetWorldScale3D(FVector(0.5f));
+	z_negativ_collision_test->SetWorldScale3D(FVector(0.5f));
+
+	all_collision_components.Add(x_positiv_collision_test);
+	all_collision_components.Add(x_negativ_collision_test);
+
+	all_collision_components.Add(y_positiv_collision_test);
+	all_collision_components.Add(y_negativ_collision_test);
+
+	all_collision_components.Add(z_positiv_collision_test);
+	all_collision_components.Add(z_negativ_collision_test);
+
+	expand_possible_x_positiv = true;
+	expand_possible_x_negativ = true;
+
+	expand_possible_y_positiv = true;
+	expand_possible_y_negativ = true;
+
+	expand_possible_z_positiv = true;
+	expand_possible_z_negativ = true;
+
+
+	all_expand_bools.Add(expand_possible_x_positiv);
+	all_expand_bools.Add(expand_possible_x_negativ);
+
+	all_expand_bools.Add(expand_possible_y_positiv);
+	all_expand_bools.Add(expand_possible_y_negativ);
+
+	all_expand_bools.Add(expand_possible_z_positiv);
+	all_expand_bools.Add(expand_possible_z_negativ);
+
+
+
+	x_positiv_collision_test->SetHiddenInGame(true);
+	x_negativ_collision_test->SetHiddenInGame(true);
+
+	y_positiv_collision_test->SetHiddenInGame(true);
+	y_negativ_collision_test->SetHiddenInGame(true);
+
+	z_positiv_collision_test->SetHiddenInGame(true);
+	z_negativ_collision_test->SetHiddenInGame(true);
+
+	x_positiv_collision_test->CastShadow = false;
+	x_negativ_collision_test->CastShadow = false;
+
+	y_positiv_collision_test->CastShadow = false;
+	y_negativ_collision_test->CastShadow = false;
+
+	z_positiv_collision_test->CastShadow = false;
+	z_negativ_collision_test->CastShadow = false;
+
+
+
+
+
+	UpdateOverlapsMethodDuringLevelStreaming = EActorUpdateOverlapsMethod::AlwaysUpdate;
 
 }
 
 void ABuildingComponent::update_bools()
 {
+	TArray<AActor*> actor_array;
 
+	for (int32 Index1 = 0; Index1 != all_collision_components.Num(); ++Index1)
+	{
+		actor_array.Empty();
+
+		all_collision_components[Index1]->GetOverlappingActors(actor_array);
+
+		if (actor_array.Num()>0)
+		{
+				switch (Index1) 
+				{
+					case 0: 
+						expand_possible_x_positiv = false;
+						x_positiv_collision_test->SetHiddenInGame(true);
+						break;
+					
+					case 1: 
+						expand_possible_x_negativ = false;
+						x_negativ_collision_test->SetHiddenInGame(true);
+						break;
+					
+					case 2: 
+						expand_possible_y_positiv = false;
+						y_positiv_collision_test->SetHiddenInGame(true);
+						break;
+
+					case 3: 
+						expand_possible_y_negativ = false;
+						y_negativ_collision_test->SetHiddenInGame(true);
+						break;
+					
+					case 4: 
+						expand_possible_z_positiv = false;
+						z_positiv_collision_test->SetHiddenInGame(true);
+						break;
+					
+					case 5: 
+						expand_possible_z_negativ = false;
+						z_negativ_collision_test->SetHiddenInGame(true);
+						break;
+				
+				}
+		}
+		
+	}
+}
+
+void ABuildingComponent::show_expandable()
+{
+	if(expand_possible_x_positiv)
+		x_positiv_collision_test->SetHiddenInGame(false);
+
+	if (expand_possible_x_negativ)
+		x_negativ_collision_test->SetHiddenInGame(false);
+
+	if (expand_possible_y_positiv)
+		y_positiv_collision_test->SetHiddenInGame(false);
+
+	if (expand_possible_y_negativ)
+		y_negativ_collision_test->SetHiddenInGame(false);
+
+	if (expand_possible_z_positiv)
+		z_positiv_collision_test->SetHiddenInGame(false);
+
+	if (expand_possible_z_negativ)
+		z_negativ_collision_test->SetHiddenInGame(false);
+}
+
+void ABuildingComponent::hide_expandable()
+{
+	for (auto& component : all_collision_components)
+	{
+		component->SetHiddenInGame(true);
+	}
 }
