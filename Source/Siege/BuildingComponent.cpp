@@ -122,7 +122,8 @@ ABuildingComponent::ABuildingComponent()
 	GetStaticMeshComponent()->SetCollisionResponseToChannel(ECollisionChannel::ECC_WorldDynamic, ECollisionResponse::ECR_Overlap);
 	GetStaticMeshComponent()->SetCollisionResponseToChannel(ECollisionChannel::ECC_Camera, ECollisionResponse::ECR_Overlap);
 	GetStaticMeshComponent()->SetGenerateOverlapEvents(true);
-	
+	GetStaticMeshComponent()->SetMobility(EComponentMobility::Movable);
+
 	x_positiv_collision_test->SetWorldScale3D(FVector(0.5f));
 	x_negativ_collision_test->SetWorldScale3D(FVector(0.5f));
 
@@ -192,6 +193,7 @@ void ABuildingComponent::update_bools()
 {
 	TArray<AActor*> actor_array;
 
+
 	for (int32 Index1 = 0; Index1 != all_collision_components.Num(); ++Index1)
 	{
 		actor_array.Empty();
@@ -236,6 +238,16 @@ void ABuildingComponent::update_bools()
 		}
 		
 	}
+
+	all_expand_bools[0] = expand_possible_x_positiv;
+	all_expand_bools[1] = expand_possible_x_negativ;
+	all_expand_bools[2] = expand_possible_y_positiv;
+	all_expand_bools[3] = expand_possible_y_negativ;
+	all_expand_bools[4] = expand_possible_z_positiv;
+	all_expand_bools[5] = expand_possible_z_negativ;
+
+
+
 }
 
 void ABuildingComponent::show_expandable()

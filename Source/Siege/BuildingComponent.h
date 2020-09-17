@@ -82,6 +82,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
 		TArray<bool> all_expand_bools;
 
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
+		TArray<ABuildingComponent*> already_constraint;
+
 	UFUNCTION(BlueprintCallable)
 		void update_bools();
 
