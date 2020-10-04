@@ -14,6 +14,7 @@ class SIEGE_API ABuildingComponent : public AStaticMeshActor
 {
 	GENERATED_BODY()
 
+		virtual void BeginPlay() override;
 
 protected:
 
@@ -54,36 +55,52 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 		class UStaticMeshComponent* z_negativ_collision_test;
 
-	TArray<UStaticMeshComponent*> all_collision_components;
+private:
 
+	bool expand_possible_x_positiv;
+
+	bool expand_possible_x_negativ;
+
+	bool expand_possible_y_positiv;
+
+	bool expand_possible_y_negativ;
+
+	bool expand_possible_z_positiv;
+
+	bool expand_possible_z_negativ;
 
 
 public:
 	ABuildingComponent();
 
-	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
-		bool expand_possible_x_positiv;
+	UPROPERTY(EditDefaultsOnly)
+		bool default_expand_possible_x_positiv;
 
-	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
-		bool expand_possible_x_negativ;
+	UPROPERTY(EditDefaultsOnly)
+		bool default_expand_possible_x_negativ;
 
-	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
-		bool expand_possible_y_positiv;
+	UPROPERTY(EditDefaultsOnly)
+		bool default_expand_possible_y_positiv;
 
-	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
-		bool expand_possible_y_negativ;
+	UPROPERTY(EditDefaultsOnly)
+		bool default_expand_possible_y_negativ;
 
-	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
-		bool expand_possible_z_positiv;
+	UPROPERTY(EditDefaultsOnly)
+		bool default_expand_possible_z_positiv;
 
-	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
-		bool expand_possible_z_negativ;
+	UPROPERTY(EditDefaultsOnly)
+		bool default_expand_possible_z_negativ;
 
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
 		TArray<bool> all_expand_bools;
 
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
 		TArray<ABuildingComponent*> already_constraint;
+
+
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
+	TArray<UStaticMeshComponent*> all_collision_components;
+
 
 	UFUNCTION(BlueprintCallable)
 		void update_bools();
