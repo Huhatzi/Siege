@@ -17,6 +17,8 @@ ABuildingComponent::ABuildingComponent()
 	z_positiv = CreateDefaultSubobject<USceneComponent>(TEXT("z_positiv"));
 	z_negativ = CreateDefaultSubobject<USceneComponent>(TEXT("z_negativ"));
 
+
+
 	x_positiv->SetupAttachment(RootComponent);
 	x_positiv->SetRelativeLocation(FVector(100.f, 0.f, 0.f));
 
