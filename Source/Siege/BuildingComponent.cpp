@@ -17,24 +17,26 @@ ABuildingComponent::ABuildingComponent()
 	z_positiv = CreateDefaultSubobject<USceneComponent>(TEXT("z_positiv"));
 	z_negativ = CreateDefaultSubobject<USceneComponent>(TEXT("z_negativ"));
 
+	origin = CreateDefaultSubobject<USceneComponent>(TEXT("origin"));
 
+	origin->SetupAttachment(RootComponent);
 
-	x_positiv->SetupAttachment(RootComponent);
+	x_positiv->SetupAttachment(origin);
 	x_positiv->SetRelativeLocation(FVector(100.f, 0.f, 0.f));
 
-	x_negativ->SetupAttachment(RootComponent);
+	x_negativ->SetupAttachment(origin);
 	x_negativ->SetRelativeLocation(FVector(-100.f, 0.f, 0.f));
 
-	y_positiv->SetupAttachment(RootComponent);
+	y_positiv->SetupAttachment(origin);
 	y_positiv->SetRelativeLocation(FVector(0.f, 100.f, 0.f));
 
-	y_negativ->SetupAttachment(RootComponent);
+	y_negativ->SetupAttachment(origin);
 	y_negativ->SetRelativeLocation(FVector(0.f, -100.f, 0.f));
 
-	z_positiv->SetupAttachment(RootComponent);
+	z_positiv->SetupAttachment(origin);
 	z_positiv->SetRelativeLocation(FVector(0.f, 0.f, 100.f));
 
-	z_negativ->SetupAttachment(RootComponent);
+	z_negativ->SetupAttachment(origin);
 	z_negativ->SetRelativeLocation(FVector(0.f, 0.f, -100.f));
 
 	SetReplicates(true);
@@ -47,6 +49,15 @@ ABuildingComponent::ABuildingComponent()
 
 	z_positiv_collision_test = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("z_positiv_collision_test"));
 	z_negativ_collision_test = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("z_negativ_collision_test"));
+
+	UStaticMesh* Mesh = LoadObject<UStaticMesh>(nullptr, TEXT("StaticMesh'/Game/castleeditor/meshes/you_can_build_here_cube.you_can_build_here_cube'"));
+
+	x_positiv_collision_test->SetStaticMesh(Mesh);
+	y_positiv_collision_test->SetStaticMesh(Mesh);
+	z_positiv_collision_test->SetStaticMesh(Mesh);
+	x_negativ_collision_test->SetStaticMesh(Mesh);
+	y_negativ_collision_test->SetStaticMesh(Mesh);
+	z_negativ_collision_test->SetStaticMesh(Mesh);
 
 	x_positiv_collision_test->SetupAttachment(x_positiv);
 	x_negativ_collision_test->SetupAttachment(x_negativ);
