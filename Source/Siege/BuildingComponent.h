@@ -104,6 +104,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere)
 	TArray<UStaticMeshComponent*> all_collision_components;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = a)
+	TSubclassOf<class AIngameComponent> ingame_version;
+
 
 	UFUNCTION(BlueprintCallable)
 		void update_bools();
