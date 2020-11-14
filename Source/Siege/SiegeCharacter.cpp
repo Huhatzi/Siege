@@ -8,6 +8,8 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "AIController.h"
+#include "BrainComponent.h"
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -46,7 +48,7 @@ ASiegeCharacter::ASiegeCharacter()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
-
+	alive = true;
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
@@ -171,4 +173,32 @@ void ASiegeCharacter::MoveRight(float Value)
 		// add movement in that direction
 		AddMovementInput(Direction, Value);
 	}
+}
+
+void ASiegeCharacter::die_Implementation()
+{
+	class ASiegeCharacter* deadperson = this;
+
+	class AAIController* deadController = Cast<AAIController>(deadperson->GetController());
+	if (deadController)
+	{
+		class UBrainComponent* brain = deadController->GetBrainComponent();
+		if (brain)
+		{
+			brain->StopLogic("");
+		}
+	}
+
+	deadperson->alive = false;
+	deadperson->attacking = false;
+	deadperson->GetMesh()->SetCollisionResponseToChannel(ECollisionChannel::ECC_PhysicsBody, ECollisionResponse::ECR_Ignore);
+	deadperson->GetCharacterMovement()->Deactivate();
+	deadperson->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	deadperson->GetMesh()->SetAllBodiesSimulatePhysics(true);
+
+}
+
+bool ASiegeCharacter::die_Validate()
+{
+	return true;
 }
