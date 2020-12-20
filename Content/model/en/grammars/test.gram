@@ -1,0 +1,7 @@
+#JSGF V1.0;
+
+grammar test;
+
+public <testrule> = <testruler> <testt>;
+<testruler> = hello;
+<testt> = there;
