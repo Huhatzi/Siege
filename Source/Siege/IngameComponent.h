@@ -14,4 +14,7 @@ class SIEGE_API AIngameComponent : public AStaticMeshActor
 {
 	GENERATED_BODY()
 	
+
+public:
+	AIngameComponent();
 };

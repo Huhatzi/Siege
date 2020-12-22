@@ -2,7 +2,6 @@ pkginclude_HEADERS =				\
 	ad.h					\
 	agc.h					\
 	bio.h					\
-	bitarr.h				\
 	bitvec.h				\
 	byteorder.h				\
 	case.h					\
@@ -21,16 +20,17 @@ pkginclude_HEADERS =				\
 	glist.h					\
 	hash_table.h				\
 	heap.h					\
+	huff_code.h				\
 	jsgf.h					\
 	listelem_alloc.h			\
 	logmath.h				\
 	matrix.h				\
 	mmio.h                                  \
+	mulaw.h					\
 	ngram_model.h				\
 	pio.h					\
 	yin.h					\
 	prim_type.h				\
-	priority_queue.h		\
 	profile.h				\
 	sbthread.h				\
 	sphinxbase_export.h			\

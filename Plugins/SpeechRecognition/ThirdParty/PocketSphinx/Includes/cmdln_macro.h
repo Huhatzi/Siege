@@ -154,7 +154,7 @@
 { "-backtrace",                                                                                 \
       ARG_BOOLEAN,                                                                              \
       "no",                                                                                     \
-      "Print results and backtraces to log." },                                                 \
+      "Print results and backtraces to log file." },                                            \
 { "-latsize",                                                                                   \
       ARG_INT32,                                                                                \
       "5000",                                                                                   \
@@ -180,7 +180,7 @@
       "25",                                                                    	                \
       "Window of frames in lattice to search for successor words in fwdflat search " }
 
-/** Command-line options for keyphrase spotting */
+/** Command-line options for keyword spotting */
 #define POCKETSPHINX_KWS_OPTIONS \
 { "-keyphrase",                                                 \
          ARG_STRING,                                            \
@@ -193,7 +193,7 @@
 { "-kws_plp",                                                   \
       ARG_FLOAT64,                                              \
       "1e-1",                                                   \
-      "Phone loop probability for keyphrase spotting" },          \
+      "Phone loop probability for keyword spotting" },          \
 { "-kws_delay",                                                 \
       ARG_INT32,                                                \
       "10",                                                     \

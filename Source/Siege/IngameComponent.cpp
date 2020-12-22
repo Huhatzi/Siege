@@ -3,3 +3,7 @@
 
 #include "IngameComponent.h"
 
+AIngameComponent::AIngameComponent()
+{
+	SetReplicates(true);
+}

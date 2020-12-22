@@ -4,6 +4,9 @@
 /* Default radix point for fixed-point */
 /* #undef DEFAULT_RADIX */
 
+/* Use Q15 fixed-point computation */
+/* #undef FIXED16 */
+
 /* Use fixed-point computation */
 /* #undef FIXED_POINT */
 
