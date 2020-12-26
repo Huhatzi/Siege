@@ -6,6 +6,7 @@
 #include "FormationSaveGame.h"
 #include "CastleNamesSaveGame.h"
 #include "CastleSaveGame.h"
+#include "SettingsSave.h"
 
 void USiegeGameInstance::Init()
 {
@@ -30,6 +31,16 @@ void USiegeGameInstance::Init()
 		castleNamesSaveObject = Cast<UCastleNamesSaveGame>(UGameplayStatics::CreateSaveGameObject(UCastleNamesSaveGame::StaticClass()));
 	}
 
+	if (UGameplayStatics::DoesSaveGameExist("settingssave", 0))
+	{
+		settingsSaveObject = Cast<USettingsSave>(UGameplayStatics::LoadGameFromSlot("settingssave", 0));
+	}
+	else
+	{
+		settingsSaveObject = Cast<USettingsSave>(UGameplayStatics::CreateSaveGameObject(USettingsSave::StaticClass()));
+		settingsSaveObject->dimensions = FVector2D(700, -540);
+	}
+
 }
 
 void USiegeGameInstance::Shutdown()
@@ -38,6 +49,7 @@ void USiegeGameInstance::Shutdown()
 
 	UGameplayStatics::SaveGameToSlot(formationSaveObject, "Formation_slot",0);
 	UGameplayStatics::SaveGameToSlot(castleNamesSaveObject, "castlenames", 0);
+	UGameplayStatics::SaveGameToSlot(settingsSaveObject, "settingssave", 0);
 
 	if (castleSaveObject&&!currentlyEditing.IsEmpty())
 	{

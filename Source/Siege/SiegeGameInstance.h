@@ -25,6 +25,8 @@ public:
 	class UCastleNamesSaveGame* castleNamesSaveObject;
 	UPROPERTY(BlueprintReadWrite)
 	FString currentlyEditing;
+	UPROPERTY(BlueprintReadOnly)
+		class USettingsSave* settingsSaveObject;
 
 	virtual void Init() override;
 	virtual void Shutdown() override;
