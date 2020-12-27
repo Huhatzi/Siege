@@ -26,7 +26,7 @@ void AIngameComponent::Tick(float DeltaSeconds)
 
 	if (simulates)
 	{
-		if (GetStaticMeshComponent()->GetComponentLocation() != lastPosition)
+		if (!(GetStaticMeshComponent()->GetComponentLocation() - lastPosition).IsNearlyZero(2.f))
 		{
 			lastPosition = GetStaticMeshComponent()->GetComponentLocation();
 			stillSince = 0;
@@ -34,10 +34,11 @@ void AIngameComponent::Tick(float DeltaSeconds)
 		else
 		{
 			stillSince += DeltaSeconds;
-			if (stillSince > 1.f)
+			if (stillSince > .5f)
 			{
 				simulates = false;
 				endSimulation();
+				justConnect();
 			}
 		}
 	}
@@ -88,6 +89,35 @@ void AIngameComponent::createConnections()
 	{
 		connect();
 	}
+}
+
+void AIngameComponent::justConnect()
+{
+	TArray<AActor*> Result;
+
+	overlapFinder->SetRelativeScale3D(FVector(1.5f));
+	overlapFinder->GetOverlappingActors(Result, AIngameComponent::StaticClass());
+	Result.Remove(this);
+	for (int i = 0; i < Result.Num(); i++)
+	{
+		class AIngameComponent* casted = Cast<class AIngameComponent>(Result[i]);
+		if (casted)
+		{
+			connectedTo.Add(casted);
+			if (casted->isRoot)
+			{
+				areRoots.Add(true);
+			}
+			else
+			{
+				areRoots.Add(casted->areRoots.Contains(true));
+			}
+
+			casted->connectedTo.Add(this);
+			casted->areRoots.Add(false);
+		}
+	}
+
 }
 
 void AIngameComponent::connect()

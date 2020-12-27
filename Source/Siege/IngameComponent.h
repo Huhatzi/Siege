@@ -37,6 +37,8 @@ private:
 	void findRoot();
 	void connect();
 
+	void justConnect();
+
 protected:
 	UPROPERTY(EditDefaultsOnly)
 	float baseHealth;
