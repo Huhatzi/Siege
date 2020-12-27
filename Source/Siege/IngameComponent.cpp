@@ -16,6 +16,31 @@ AIngameComponent::AIngameComponent()
 	SetReplicates(true);
 	baseHealth = 100;
 	currentHealth = baseHealth;
+
+	simulates = false;
+}
+
+void AIngameComponent::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+
+	if (simulates)
+	{
+		if (GetStaticMeshComponent()->GetComponentLocation() != lastPosition)
+		{
+			lastPosition = GetStaticMeshComponent()->GetComponentLocation();
+			stillSince = 0;
+		}
+		else
+		{
+			stillSince += DeltaSeconds;
+			if (stillSince > 1.f)
+			{
+				simulates = false;
+				endSimulation();
+			}
+		}
+	}
 }
 
 void AIngameComponent::takeDamage(float damage)
@@ -25,7 +50,20 @@ void AIngameComponent::takeDamage(float damage)
 	if (currentHealth <= 0)
 	{
 		startSimulation();
-		return;
+	}
+	else
+	{
+		if (damage > 7)
+		{
+			for (int i = 0; i < connectedTo.Num(); i++)
+			{
+				if (connectedTo[i])
+				{
+					connectedTo[i]->takeDamage(damage/3);
+				}
+			}
+		}
+
 	}
 }
 
@@ -88,7 +126,6 @@ void AIngameComponent::removeIngameComponent(class AIngameComponent* component)
 {
 	if (component&&connectedTo.Contains(component))
 	{
-		currentHealth -= baseHealth / connectedTo.Num();
 		
 		areRoots.RemoveAt(connectedTo.Find(component));
 		connectedTo.Remove(component);
@@ -97,6 +134,11 @@ void AIngameComponent::removeIngameComponent(class AIngameComponent* component)
 		{
 			startSimulation();
 		}
+		else
+		{
+			takeDamage(baseHealth/((connectedTo.Num() + 2 ) ));
+		}
+
 	}
 }
 
@@ -118,9 +160,26 @@ void AIngameComponent::startSimulation_Implementation()
 	GetStaticMeshComponent()->SetMobility(EComponentMobility::Movable);
 	GetStaticMeshComponent()->SetSimulatePhysics(true);
 
+	stillSince = 0;
+	simulates = true;
+
 }
 
 bool AIngameComponent::startSimulation_Validate()
 {
 	return true;
 }
+
+void AIngameComponent::endSimulation_Implementation()
+{
+	currentHealth = 10;
+
+	GetStaticMeshComponent()->SetSimulatePhysics(false);
+	GetStaticMeshComponent()->SetMobility(EComponentMobility::Static);
+}
+
+bool AIngameComponent::endSimulation_Validate()
+{
+	return true;
+}
+

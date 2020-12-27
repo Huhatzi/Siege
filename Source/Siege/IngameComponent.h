@@ -13,6 +13,9 @@ UCLASS()
 class SIEGE_API AIngameComponent : public AStaticMeshActor
 {
 	GENERATED_BODY()
+
+
+		virtual void Tick(float DeltaSeconds) override;
 	
 
 private:
@@ -23,7 +26,13 @@ private:
 
 	class UBoxComponent* overlapFinder;
 
-	
+	bool simulates;
+
+	FVector lastPosition;
+	float stillSince;
+
+	UFUNCTION(NetMulticast, Reliable, WithValidation)
+	void endSimulation();
 
 	void findRoot();
 	void connect();
