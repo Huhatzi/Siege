@@ -4,10 +4,14 @@
 #include "BuildingComponent.h"
 #include "Components/SceneComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/BoxComponent.h"
 
 
 ABuildingComponent::ABuildingComponent()
 {
+
+
+
 	x_positiv = CreateDefaultSubobject<USceneComponent>(TEXT("x_positiv"));
 	x_negativ = CreateDefaultSubobject<USceneComponent>(TEXT("x_negativ"));
 
@@ -214,6 +218,12 @@ ABuildingComponent::ABuildingComponent()
 
 
 
+	overlapFinder = CreateDefaultSubobject<UBoxComponent>(TEXT("Overlapper"));
+	overlapFinder->SetupAttachment(origin);
+	overlapFinder->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	overlapFinder->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
+	overlapFinder->SetBoxExtent(FVector(50.f));
+	overlapFinder->SetRelativeScale3D(FVector(1.1f));
 
 
 	UpdateOverlapsMethodDuringLevelStreaming = EActorUpdateOverlapsMethod::AlwaysUpdate;

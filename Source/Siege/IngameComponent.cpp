@@ -6,8 +6,12 @@
 
 AIngameComponent::AIngameComponent()
 {
+
+	origin = CreateDefaultSubobject<USceneComponent>(TEXT("origin"));
+	origin->SetupAttachment(RootComponent);
+
 	overlapFinder = CreateDefaultSubobject<UBoxComponent>(TEXT("Overlapper"));
-	overlapFinder->SetupAttachment(GetStaticMeshComponent());
+	overlapFinder->SetupAttachment(origin);
 	overlapFinder->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	overlapFinder->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 	overlapFinder->SetBoxExtent(FVector(50.f));

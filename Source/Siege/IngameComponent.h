@@ -43,6 +43,10 @@ protected:
 	UPROPERTY(EditDefaultsOnly)
 	float baseHealth;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+		class USceneComponent* origin;
+
+
 public:
 	AIngameComponent();
 
