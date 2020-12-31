@@ -16,6 +16,8 @@ class SIEGE_API AIngameComponent : public AStaticMeshActor
 
 
 		virtual void Tick(float DeltaSeconds) override;
+
+		virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	
 
 private:
@@ -54,7 +56,7 @@ public:
 
 	TArray<bool> areRoots;
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadOnly, Replicated)
 	float currentHealth;
 	UFUNCTION(BlueprintCallable)
 	void takeDamage(float damage);
@@ -62,5 +64,8 @@ public:
 		void createConnections();
 	UFUNCTION(BlueprintCallable)
 		void removeIngameComponent(class AIngameComponent* component);
+
+	UPROPERTY(BlueprintReadWrite, Replicated)
+		FString ownerName;
 };
 

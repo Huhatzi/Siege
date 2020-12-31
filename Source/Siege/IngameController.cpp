@@ -3,6 +3,8 @@
 
 #include "IngameController.h"
 #include "SiegeCharacter.h"
+#include "Net/UnrealNetwork.h"
+
 
 AIngameController::AIngameController()
 {
@@ -25,6 +27,14 @@ void AIngameController::executeCommand(TArray<FString> words)
 			}
 
 	}
+
+}
+
+void AIngameController::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(AIngameController, controlledNpcs);
 
 }
 

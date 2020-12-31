@@ -32,6 +32,6 @@ public:
 	virtual void Shutdown() override;
 
 	UFUNCTION(BlueprintCallable)
-	void saveCastle(TArray<FBlockData> castleToSave);
+	void saveCastle(TArray<FBlockData> castleToSave, float cost);
 	
 };

@@ -21,6 +21,8 @@ class ASiegeCharacter : public ACharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* FollowCamera;
 
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
 
 
 
@@ -40,6 +42,9 @@ public:
 
 	UPROPERTY(BlueprintReadWrite)
 		bool attacking;
+
+	UPROPERTY(BlueprintReadWrite, Replicated)
+		TArray<FString> tagArray;
 
 
 protected:

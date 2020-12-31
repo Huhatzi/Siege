@@ -16,11 +16,14 @@ class SIEGE_API ABuildingComponent : public AStaticMeshActor
 
 		virtual void BeginPlay() override;
 
+
 protected:
 
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
 		class UBoxComponent* overlapFinder;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+		float componentCost;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 		class USceneComponent* x_positiv;

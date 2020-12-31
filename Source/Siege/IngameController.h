@@ -14,8 +14,14 @@ class SIEGE_API AIngameController : public APlayerController
 {
 	GENERATED_BODY()
 
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
 public:
 	AIngameController();
+
+
+	UPROPERTY(BlueprintReadWrite, Replicated)
+		TArray<class ASiegeCharacter*> controlledNpcs;
 
 protected:
 

@@ -3,6 +3,7 @@
 
 #include "IngameComponent.h"
 #include "Components/BoxComponent.h"
+#include "Net/UnrealNetwork.h"
 
 AIngameComponent::AIngameComponent()
 {
@@ -18,10 +19,20 @@ AIngameComponent::AIngameComponent()
 	overlapFinder->SetRelativeScale3D(FVector(1.1f));
 
 	SetReplicates(true);
+	bAlwaysRelevant = true;
 	baseHealth = 100;
 	currentHealth = baseHealth;
 
 	simulates = false;
+}
+
+void AIngameComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(AIngameComponent, ownerName);
+	DOREPLIFETIME(AIngameComponent, currentHealth);
+
 }
 
 void AIngameComponent::Tick(float DeltaSeconds)

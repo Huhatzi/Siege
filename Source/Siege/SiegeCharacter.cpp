@@ -10,6 +10,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "AIController.h"
 #include "BrainComponent.h"
+#include "Net/UnrealNetwork.h"
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -52,6 +53,14 @@ ASiegeCharacter::ASiegeCharacter()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
+}
+
+void ASiegeCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(ASiegeCharacter, tagArray);
+
 }
 
 //////////////////////////////////////////////////////////////////////////

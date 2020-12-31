@@ -17,4 +17,7 @@ class SIEGE_API USettingsSave : public USaveGame
 public:
 	UPROPERTY(BlueprintReadWrite)
 	FVector2D dimensions;
+
+	UPROPERTY(BlueprintReadWrite)
+		float maximumGold;
 };

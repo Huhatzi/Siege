@@ -30,4 +30,6 @@ public:
         UPROPERTY(BlueprintReadOnly)
         TArray<FBlockData> castleData;
 	
+        UPROPERTY(BlueprintReadOnly)
+            float castleCost;
 };

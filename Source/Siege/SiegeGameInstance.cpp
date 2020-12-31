@@ -39,6 +39,7 @@ void USiegeGameInstance::Init()
 	{
 		settingsSaveObject = Cast<USettingsSave>(UGameplayStatics::CreateSaveGameObject(USettingsSave::StaticClass()));
 		settingsSaveObject->dimensions = FVector2D(700, -540);
+		settingsSaveObject->maximumGold = 30000;
 	}
 
 }
@@ -58,11 +59,12 @@ void USiegeGameInstance::Shutdown()
 
 }
 
-void USiegeGameInstance::saveCastle(TArray<FBlockData> castleToSave)
+void USiegeGameInstance::saveCastle(TArray<FBlockData> castleToSave, float cost)
 {
 	if (castleSaveObject && !currentlyEditing.IsEmpty())
 	{
 		castleSaveObject->castleData = castleToSave;
+		castleSaveObject->castleCost = cost;
 		UGameplayStatics::SaveGameToSlot(castleSaveObject, "castle_" + currentlyEditing, 0);
 	}
 }
